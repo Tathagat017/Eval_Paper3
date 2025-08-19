@@ -23,6 +23,7 @@ class User(Base):
     fitness_goals:Mapped[List[str]] = mapped_column(List(String))
     medical_condition:Mapped[List[str]] = mapped_column(List(String))
     activity_level:Mapped[int]=mapped_column(Integer(5))
+    password:Mapped[str] = mapped_column(String(30))
     
 class WorkoutPlans(Base):
     id:Mapped[int]= mapped_column(primary_key=True)
@@ -41,7 +42,7 @@ class Excercise(Base):
     instructions:Mapped[List(str)] = mapped_column(List(String))
 
 class ProgressTracking(Base):
-    user_id:Mapped[int] = mapped_column(Integer(10))
+    user_id:Mapped["user"] = relationship(back_populates="user")
     workout_id:Mapped[int] = mapped_column(Integer(10))
     date:Mapped[DateTime]  = mapped_column(DateTime)
     excercise_comleted:Mapped[bool] = mapped_column(Boolean)
@@ -52,7 +53,7 @@ class ProgressTracking(Base):
 
 #Fields: user_id, date, meals, calories, macronutrients (protein, carbs, fats)
 class NutritionLogs(Base):
-    user_id:Mapped[int] = mapped_column(Integer(100))
+    user_id:Mapped["user"] = relationship(back_populates="user")
     date:Mapped[DateTime] = mapped_column(DateTime)
     meals:Mapped[List[str]] = mapped_column(List(String))
     calories:Mapped[int] = mapped_column(Integer(1000))

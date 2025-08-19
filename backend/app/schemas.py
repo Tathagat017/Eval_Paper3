@@ -14,6 +14,11 @@ class CreateUserRequest(BaseModel):
 class UserResponseRequest(CreateUserRequest):
     id:int 
     
+class UserLoginRequest(BaseModel):
+    name:str
+    email:str
+    password:str
+    
 class AskRequest(BaseModel):
     question: str
     
